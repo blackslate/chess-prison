@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <main>
+    <div id="buttons">
+      <label>
+        <span>Turn Coins</span>
+        <input 
+          type="radio" 
+          name="buttons" 
+          id="turn"
+          checked
+        >
+      </label>
+      <label>
+        <span>Hide Token</span>
+        <input 
+          type="radio"
+          name="buttons" 
+          id="hide"
+        >
+      </label>
+      <label
+        disabled
+      >
+        <span>Flaunt Freedom</span>
+        <input 
+          type="radio" 
+          name="buttons" 
+          id="find"
+        >
+      </label>
+    </div>
+
+    <div id="board">
+      <div><img src="images/heads.png" alt="coin"></div>
+      <div><img src="images/heads.png" alt="coin"></div>
+      <div><img src="images/heads.png" alt="coin"></div>
+      <div><img src="images/heads.png" alt="coin"></div>
+      <div><img src="images/heads.png" alt="coin"></div>
+      <div><img src="images/heads.png" alt="coin"></div>
+      <div><img src="images/heads.png" alt="coin"></div>
+      <div><img src="images/heads.png" alt="coin"></div>
+      <div><img src="images/heads.png" alt="coin"></div>
+      <div><img src="images/heads.png" alt="coin"></div>
+      <div><img src="images/heads.png" alt="coin"></div>
+      <div><img src="images/heads.png" alt="coin"></div>
+      <div><img src="images/heads.png" alt="coin"></div>
+      <div><img src="images/heads.png" alt="coin"></div>
+      <div><img src="images/heads.png" alt="coin"></div>
+      <div><img src="images/heads.png" alt="coin"></div>
+    </div>
+
+    <h1 id="value">0</h1>
+
+    <button 
+      type="button"
+      id="show"
+    >
+      Show Rules
+    </button>
+
+    <div id="rules">
+      <h1>The Pardoned Prisoner</h1>
+      <p>A prisoner will be pardoned if they can find a key hidden under a coin on a chessboard.</p>
+      <p>Player One (the Prison Warden) can:</p>
+      <ul>
+        <li>Turn over any number of coins.</li>
+        <li>Hide the Exit token under any one of the coins.</li>
+        <li>
+          <p>Press the Flaunt Freedom button.</p>
+          <p><i>At this point, the app will turn over a single coin.</i></p>
+        </li>
+        <li>Give Player Two control of this device.</li>
+      </ul>
+      <p>Player Two (the Prisoner) can:</p>
+      <ul>
+        <li>Tap on one of the coins.</li>
+      </ul>
+
+      <p>If the Exit token is hidden under that coin, Player Two wins.</p>
+
+      <button 
+        type="button"
+        id="play"
+      >
+        Play
+      </button>
+    </div>
+  </main>
+</body>
+</html>
