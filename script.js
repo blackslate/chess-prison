@@ -3,19 +3,27 @@
  */
 
 
-const rules   = document.getElementById("rules")
-const play    = document.getElementById("play")
-const show    = document.getElementById("show")
-const buttons = document.getElementById("buttons")
-const find    = document.querySelector("label:has(#find)")
-const board   = document.getElementById("board")
-const value   = document.getElementById("value")
-const coins   = Array.from(board.querySelectorAll("img"))
-const heads   = "images/heads.png"
-const tails   = "images/tails.png"
-const faces   = [ heads, tails ]
-let state     = document.querySelector(':checked').id;
-let hidden    = -1
+const rules    = document.getElementById("rules")
+const controls = document.getElementById("controls")
+const play     = document.getElementById("play")
+const show     = document.getElementById("show")
+const turn     = document.getElementById("turn")
+const winner   = document.getElementById("winner")
+const buttons  = document.getElementById("buttons")
+const find     = document.querySelector("label:has(#find)")
+const board    = document.getElementById("board")
+const value    = document.getElementById("value")
+const coins    = Array.from(board.querySelectorAll("img"))
+const heads    = "images/heads.png"
+const tails    = "images/tails.png"
+const faces    = [ heads, tails ]
+let state      = document.querySelector(':checked').id;
+let hidden     = -1
+
+const winnerTexts = [
+  "The prisoner escapes! Play again.",
+  "The warden locks the prisoner in the cell! Play again."
+]
 
 
 // Look up code for which coin to flip to mod the
@@ -45,19 +53,41 @@ coins.forEach( coin => (
 ))
 
 
-play.addEventListener("click", startGame)
-show.addEventListener("click", showRules)
+controls.addEventListener("click", treatControl)
 buttons.addEventListener("change", setState)
 board.addEventListener("click", treatCoinClick)
 board.addEventListener("transitionend", nextState)
 
 
 function startGame() {
-  rules.classList.add("hide")
 }
 
-function showRules() {
-  rules.classList.remove("hide")
+function treatControl({ target }) {
+  const button = target.id
+
+  switch (button) {
+    case "play":
+      rules.classList.add("hide")
+      show.classList.remove("selected")
+      play.classList.add("selected")
+    break;
+    case "hide":
+      rules.classList.remove("hide")
+      play.classList.remove("selected")
+      show.classList.add("selected")
+    break;
+
+    case "winner":
+      winner.classList.remove("game-over")
+      state = "turn"
+      turn.checked = true
+      turn.parentElement.removeAttribute("disabled")
+      hide.parentElement.removeAttribute("disabled")
+      find.setAttribute("disabled", true)
+      document.querySelector(".token").remove()
+      coins.forEach(coin => coin.classList.remove("remove"))
+    break;
+  }
 }
 
 
@@ -81,6 +111,9 @@ function flipCoin() {
   const flip = LUT[mod]
   console.log("mod:", mod, ", flip:", flip)
   turnCoin(coins[flip])
+
+  turn.parentElement.setAttribute("disabled", true)
+  hide.parentElement.setAttribute("disabled", true)
 }
 
 
@@ -174,10 +207,7 @@ function showToken(target) {
 
 
 function replaceCoin(target) {
-  console.log("target.src:", target.src)
   const sibling = target.nextSibling
-  console.log("target.nextSibling:", sibling)
-  console.log("replaceCoin", coins.indexOf(sibling))
   state = "hide"
   sibling.classList.remove("remove")
   sibling.classList.add("replace")
@@ -188,11 +218,15 @@ function replaceCoin(target) {
 
 function liftCoin(target) {
   const coin = target.nextSibling || target
-  console.log("coin:", coin, coins.indexOf(coin))
   coin.classList.remove("replace")
   coin.classList.add("remove")
   target.classList.remove("vanish")
+  state = "game-over"
+
+  const text = winnerTexts[(coin == target) + 0]
+  winner.innerText = text
+  winner.classList.add("game-over")
 }
 
 
-getHex()
+// getHex()

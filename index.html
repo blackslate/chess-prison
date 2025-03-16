@@ -11,31 +11,32 @@
 </head>
 <body>
   <main>
-    <div id="buttons">
+    <div id="buttons" class="buttons">
       <label>
         <span>Turn Coins</span>
-        <input 
-          type="radio" 
-          name="buttons" 
+        <input
+          type="radio"
+          name="buttons"
           id="turn"
           checked
         >
       </label>
       <label>
         <span>Hide Token</span>
-        <input 
+        <input
           type="radio"
-          name="buttons" 
+          name="buttons"
           id="hide"
         >
       </label>
       <label
         disabled
+        class="primary"
       >
         <span>Flaunt Freedom</span>
-        <input 
-          type="radio" 
-          name="buttons" 
+        <input
+          type="radio"
+          name="buttons"
           id="find"
         >
       </label>
@@ -62,12 +63,32 @@
 
     <h1 id="value">0</h1>
 
-    <button 
-      type="button"
-      id="show"
+    <div
+      id="controls"
+      class="buttons"
     >
-      Show Rules
-    </button>
+      <button
+        type="button"
+        id="show"
+        class="selected"
+      >
+        Show Rules
+      </button>
+
+      <button
+        type="button"
+        id="play"
+      >
+        Play
+      </button>
+
+      <button
+        type="button"
+        id="winner"
+      >
+        The prisoner escapes! Play again.
+      </button>
+    </div>
 
     <div id="rules">
       <h1>The Pardoned Prisoner</h1>
@@ -88,13 +109,6 @@
       </ul>
 
       <p>If the Exit token is hidden under that coin, Player Two wins.</p>
-
-      <button 
-        type="button"
-        id="play"
-      >
-        Play
-      </button>
     </div>
   </main>
 </body>
