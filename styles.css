@@ -30,7 +30,7 @@ body {
 
   color: var(--light);
   background-color: var(--dark);
-  font-size: 3vmin;
+  font-size: 2.75vmin;
 }
 
 main {
@@ -47,15 +47,6 @@ div.buttons {
     border-radius: 0.25em;
     padding: 0.25em 1em;
     cursor: pointer;
-
-    &.primary {
-      background-color: var(--primary);
-      border-color: var(--primary-border);
-    }
-
-    &.primary:active:hover {
-      background-color: var(--primary-active);
-    }
 
     &:has(:checked) {
       border-style: inset;
@@ -103,20 +94,33 @@ div#board {
     width: 95%;
     opacity: 1;
 
-    &.token {
+    &.coin {
       position: absolute;
       opacity: 1;
       transition: opacity 0.1s 0.1s;
     }
 
-    &.remove {
+    &.fate {
       opacity: 0;
-      transition: opacity 0.1s;
+
+      &.chosen {
+        opacity: 1;
+      }
+    }
+
+    &.exit {
+      opacity: 1;
+      transition: opacity 0.1s 0.1s;
     }
 
     &.vanish {
       opacity: 0;
       transition: opacity 0.5s 1s;
+    }
+
+    &.remove {
+      opacity: 0;
+      transition: opacity 0.1s;
     }
 
     &.replace {
@@ -157,7 +161,7 @@ button {
       background-color: #000;
     }
 
-    &#winner {
+    &#over {
       display: none;
       position: absolute;
       width: 100%;
@@ -166,6 +170,25 @@ button {
         display: block;
       }
     }
+  }
+}
+
+/* main div[id] is added to increase specificity */
+main div[id] {
+  & .primary {
+    background-color: var(--primary);
+    border-color: var(--primary-border);
+
+    &:active:hover {
+      background-color: var(--primary-active);
+    }
+  }
+
+  & [disabled] {
+    opacity: 0.5;
+    background-color: transparent;
+    pointer-events: none;
+    cursor: default;
   }
 }
 

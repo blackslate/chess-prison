@@ -5,7 +5,7 @@
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Prison Chess</title>
   <link rel="stylesheet" href="styles.css">
   <script defer src="script.js"></script>
 </head>
@@ -33,7 +33,7 @@
         disabled
         class="primary"
       >
-        <span>Flaunt Freedom</span>
+        <span>Offer Pardon</span>
         <input
           type="radio"
           name="buttons"
@@ -43,22 +43,70 @@
     </div>
 
     <div id="board">
-      <div><img src="images/heads.png" alt="coin"></div>
-      <div><img src="images/heads.png" alt="coin"></div>
-      <div><img src="images/heads.png" alt="coin"></div>
-      <div><img src="images/heads.png" alt="coin"></div>
-      <div><img src="images/heads.png" alt="coin"></div>
-      <div><img src="images/heads.png" alt="coin"></div>
-      <div><img src="images/heads.png" alt="coin"></div>
-      <div><img src="images/heads.png" alt="coin"></div>
-      <div><img src="images/heads.png" alt="coin"></div>
-      <div><img src="images/heads.png" alt="coin"></div>
-      <div><img src="images/heads.png" alt="coin"></div>
-      <div><img src="images/heads.png" alt="coin"></div>
-      <div><img src="images/heads.png" alt="coin"></div>
-      <div><img src="images/heads.png" alt="coin"></div>
-      <div><img src="images/heads.png" alt="coin"></div>
-      <div><img src="images/heads.png" alt="coin"></div>
+      <div>
+        <img src="images/bars.webp" alt="bars" class="fate">
+        <img src="images/heads.png" alt="coin" class="coin">
+      </div>
+      <div>
+        <img src="images/bars.webp" alt="bars" class="fate">
+        <img src="images/heads.png" alt="coin" class="coin">
+      </div>
+      <div>
+        <img src="images/bars.webp" alt="bars" class="fate">
+        <img src="images/heads.png" alt="coin" class="coin">
+      </div>
+      <div>
+        <img src="images/bars.webp" alt="bars" class="fate">
+        <img src="images/heads.png" alt="coin" class="coin">
+      </div>
+      <div>
+        <img src="images/bars.webp" alt="bars" class="fate">
+        <img src="images/heads.png" alt="coin" class="coin">
+      </div>
+      <div>
+        <img src="images/bars.webp" alt="bars" class="fate">
+        <img src="images/heads.png" alt="coin" class="coin">
+      </div>
+      <div>
+        <img src="images/bars.webp" alt="bars" class="fate">
+        <img src="images/heads.png" alt="coin" class="coin">
+      </div>
+      <div>
+        <img src="images/bars.webp" alt="bars" class="fate">
+        <img src="images/heads.png" alt="coin" class="coin">
+      </div>
+      <div>
+        <img src="images/bars.webp" alt="bars" class="fate">
+        <img src="images/heads.png" alt="coin" class="coin">
+      </div>
+      <div>
+        <img src="images/bars.webp" alt="bars" class="fate">
+        <img src="images/heads.png" alt="coin" class="coin">
+      </div>
+      <div>
+        <img src="images/bars.webp" alt="bars" class="fate">
+        <img src="images/heads.png" alt="coin" class="coin">
+      </div>
+      <div>
+        <img src="images/bars.webp" alt="bars" class="fate">
+        <img src="images/heads.png" alt="coin" class="coin">
+      </div>
+      <div>
+        <img src="images/bars.webp" alt="bars" class="fate">
+        <img src="images/heads.png" alt="coin" class="coin">
+      </div>
+      <div>
+        <img src="images/bars.webp" alt="bars" class="fate">
+        <img src="images/heads.png" alt="coin" class="coin">
+      </div>
+      <div>
+        <img src="images/bars.webp" alt="bars" class="fate">
+        <img src="images/heads.png" alt="coin" class="coin">
+      </div>
+      <div>
+        <img src="images/bars.webp" alt="bars" class="fate">
+        <img src="images/heads.png" alt="coin" class="coin">
+      </div>
     </div>
 
     <h1 id="value">0</h1>
@@ -84,7 +132,8 @@
 
       <button
         type="button"
-        id="winner"
+        id="over"
+        class="primary"
       >
         The prisoner escapes! Play again.
       </button>
@@ -98,7 +147,7 @@
         <li>Turn over any number of coins.</li>
         <li>Hide the Exit token under any one of the coins.</li>
         <li>
-          <p>Press the Flaunt Freedom button.</p>
+          <p>Press the Offer button.</p>
           <p><i>At this point, the app will turn over a single coin.</i></p>
         </li>
         <li>Give Player Two control of this device.</li>

@@ -8,21 +8,24 @@ const controls = document.getElementById("controls")
 const play     = document.getElementById("play")
 const show     = document.getElementById("show")
 const turn     = document.getElementById("turn")
-const winner   = document.getElementById("winner")
+const over     = document.getElementById("over")
 const buttons  = document.getElementById("buttons")
 const find     = document.querySelector("label:has(#find)")
 const board    = document.getElementById("board")
 const value    = document.getElementById("value")
-const coins    = Array.from(board.querySelectorAll("img"))
+const coins    = Array.from(board.querySelectorAll("img.coin"))
+
 const heads    = "images/heads.png"
 const tails    = "images/tails.png"
+const bars     = "images/bars.webp"
+const exit     = "images/exit.webp"
 const faces    = [ heads, tails ]
 let state      = document.querySelector(':checked').id;
 let hidden     = -1
 
-const winnerTexts = [
-  "The prisoner escapes! Play again.",
-  "The warden locks the prisoner in the cell! Play again."
+const overTexts = [
+  "Send the prisoner back behind bars! Click to play again.",
+  "The prisoner is pardoned! Click to play again."
 ]
 
 
@@ -62,6 +65,7 @@ board.addEventListener("transitionend", nextState)
 function startGame() {
 }
 
+
 function treatControl({ target }) {
   const button = target.id
 
@@ -71,22 +75,15 @@ function treatControl({ target }) {
       show.classList.remove("selected")
       play.classList.add("selected")
     break;
+
     case "hide":
       rules.classList.remove("hide")
       play.classList.remove("selected")
       show.classList.add("selected")
     break;
 
-    case "winner":
-      winner.classList.remove("game-over")
-      state = "turn"
-      turn.checked = true
-      turn.parentElement.removeAttribute("disabled")
-      hide.parentElement.removeAttribute("disabled")
-      find.setAttribute("disabled", true)
-      document.querySelector(".token").remove()
-      coins.forEach(coin => coin.classList.remove("remove"))
-    break;
+    case "over":
+      return playAgain()
   }
 }
 
@@ -109,7 +106,6 @@ function flipCoin() {
   const hex = getHex()
   const mod = hex ^ hidden
   const flip = LUT[mod]
-  console.log("mod:", mod, ", flip:", flip)
   turnCoin(coins[flip])
 
   turn.parentElement.setAttribute("disabled", true)
@@ -154,7 +150,7 @@ function treatCoinClick({ target }) {
       return turnCoin(target)
 
     case "hide":
-      return hideToken(target)
+      return placeToken(target)
 
     case "find":
       return liftCoin(target)
@@ -168,22 +164,19 @@ function turnCoin(target) {
 }
 
 
-function nextState({ target, type }) {
-  // function body
-  const index = coins.indexOf(target)
-  value.innerText = `${index} ${type}`
-  console.log("nextState:", state)
-
+function nextState({ target }) {
   switch (state) {
     case "hiding":
       return showToken(target)
+    case "fading":
+      return hideToken(target)
     case "hidden":
       return replaceCoin(target)
   }
 }
 
 
-function hideToken(target) {
+function placeToken(target) {
   state = "hiding"
   hidden = coins.indexOf(target)
 
@@ -193,21 +186,28 @@ function hideToken(target) {
 
 
 function showToken(target) {
-  state = "hidden"
-  // Create or move the img.token
-  const token = document.querySelector(".token")
-             || document.createElement("img")
-  token.className = "token"
-  token.src = "images/exit.webp"
-  token.alt = "exit"
-  target.parentNode.prepend(token)
+  state = "fading"
 
-  setTimeout(() =>  token.classList.add("vanish"), 1)
+  const fate = target.previousElementSibling
+  fate.src = exit
+  fate.alt = "exit"
+  fate.classList.add("exit")
+
+  // setTimeout(() =>  fate.classList.add("vanish"), 1)
+}
+
+
+function hideToken(target) {
+  state = "hidden"
+  
+  target.classList.add("vanish")
+
+  // setTimeout(() =>  fate.classList.add("vanish"), 1)
 }
 
 
 function replaceCoin(target) {
-  const sibling = target.nextSibling
+  const sibling = target.nextElementSibling
   state = "hide"
   sibling.classList.remove("remove")
   sibling.classList.add("replace")
@@ -217,16 +217,45 @@ function replaceCoin(target) {
 
 
 function liftCoin(target) {
-  const coin = target.nextSibling || target
-  coin.classList.remove("replace")
-  coin.classList.add("remove")
-  target.classList.remove("vanish")
+  target.classList.remove("replace")
+  target.classList.add("remove")
+
+  const fate = target.previousElementSibling || target
+  fate.classList.remove("vanish")
+  fate.classList.add("chosen")
   state = "game-over"
 
-  const text = winnerTexts[(coin == target) + 0]
-  winner.innerText = text
-  winner.classList.add("game-over")
+  const index = coins.indexOf(target)
+  const text = overTexts[(index === hidden) + 0]
+  over.innerText = text
+  over.classList.add(state)
+
+  find.setAttribute("disabled", true)
 }
 
+
+function playAgain() {
+  // Hide the game-over button
+  over.classList.remove("game-over")
+
+  // Activate the Turn radio label
+  state = "turn"
+  turn.checked = true
+
+  // Re-enable turn and hide
+  turn.parentElement.removeAttribute("disabled")
+  hide.parentElement.removeAttribute("disabled")
+
+  // Reset exit
+  const exit = document.querySelector(".exit")
+  exit.src = bars
+  exit.alt = "bars"
+  exit.classList.remove("exit")
+
+  // Reset chosen fate
+  document.querySelector(".chosen").classList.remove("chosen")
+  
+  coins.forEach(coin => coin.classList.remove("remove"))
+}
 
 // getHex()
